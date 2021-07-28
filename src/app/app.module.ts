@@ -9,6 +9,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { GetCompanyDetailsComponent } from './get-company-details/get-company-details.component';
 import { GetAllCompanyDetailsComponent } from './get-all-company-details/get-all-company-details.component';
 import { GetStockDetailsComponent } from './get-stock-details/get-stock-details.component';
+import { StockListComponent } from './models/stock-list.component';
+import { StockComponent } from './models/stock.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { GetStockDetailsComponent } from './get-stock-details/get-stock-details.
     HomePageComponent,
     GetCompanyDetailsComponent,
     GetAllCompanyDetailsComponent,
-    GetStockDetailsComponent
+    GetStockDetailsComponent,
+    StockListComponent,
+    StockComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,35 @@
-<p>get-all-company-details works!</p>
+<div class="container">
+    <mat-accordion class="company-list-panel" *ngIf="isPresent">
+        <mat-expansion-panel *ngFor="let company of companies">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Company Code {{ company.companyCode }}
+                </mat-panel-title>
+                <mat-panel-description>
+                    Company Name {{ company.companyName }}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <mat-list role="list" id="labels">
+                    <mat-list-item role="listitem">Company CEO</mat-list-item>
+                    <mat-list-item role="listitem">Company Turn Over</mat-list-item>
+                    <mat-list-item role="listitem">Company Website</mat-list-item>
+                    <mat-list-item role="listitem">Stock Exchange company enlisted in</mat-list-item>
+                    <mat-list-item role="listitem">Latest stock price</mat-list-item>
+                </mat-list>
+                <mat-list role="list">
+                    <mat-list-item role="listitem">{{ company.companyCEO }}</mat-list-item>
+                    <mat-list-item role="listitem">{{ company.companyTurnOver }}</mat-list-item>
+                    <mat-list-item role="listitem">{{ company.companyWebsite }}</mat-list-item>
+                    <mat-list-item role="listitem">{{ company.stockExchange }}</mat-list-item>
+                    <mat-list-item role="listitem">{{ company.latestStockPrice }}</mat-list-item>
+                </mat-list>
+            </ng-template>
+            <mat-action-row>
+                <button mat-button color="accent" (click)="deleteCompany(company.companyCode)">Delete</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <h1 *ngIf="!isPresent" class="no-data">No companies registered</h1>
+</div>

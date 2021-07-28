@@ -1,1 +1,54 @@
-<p>get-stock-details works!</p>
+
+<mat-card class="stock-view-card" [class.mat-elevation-z8]="active">
+    <br>
+    <mat-card-title>View Stock Details</mat-card-title>
+    <div class="stock-view-form">
+        <p>
+            Choose a start and end date to view stocks between them for a company
+        </p>
+        <br>
+        <form [formGroup]="stockViewForm" #stockViewFormDir="ngForm" (ngSubmit)="viewStocks(stockViewFormDir)">
+            <mat-form-field class="stock-view-form-field-wrapper" appearance="outline">
+                <mat-label>Enter company code</mat-label>
+                <input matInput type="text" id="companyCode" name="companyCode"
+                    formControlName="companyCode" class="companyCode" [(ngModel)]="companyCodeIn">
+                <mat-error>{{ getCompanyCodeBlankMessage() }}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="stock-view-form-field-wrapper stock-view-date-picker" appearance="outline">
+                <mat-label>From</mat-label>
+                <input matInput [matDatepicker]="startDate" formControlName="startDate" [(ngModel)]="startDateIn">
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+                <mat-error>{{ getStartDateBlankMessage() }}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="stock-view-form-field-wrapper stock-view-date-picker" appearance="outline">
+                <mat-label>To</mat-label>
+                <input matInput [matDatepicker]="endDate" formControlName="endDate" [(ngModel)]="endDateIn">
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate></mat-datepicker>
+                <mat-error>{{ getEndDateBlankMessage() }}</mat-error>
+            </mat-form-field>
+            <div class="stock-view-done-btn-wrapper">
+                <button mat-button type="submit" [disabled]="!stockViewForm.valid" color="accent">Submit</button>
+            </div>
+        </form>
+    </div>
+</mat-card>
+<mat-card class="stock-list-card" *ngIf="isSuccess" [class.mat-elevation-z8]="active">
+    <mat-card-title>Stocks Details</mat-card-title>
+    <mat-list role="list" id="labels">
+        <mat-list-item role="listitem">
+            <h3 matLine>Company Code&nbsp;&nbsp;{{ companyCodeOut }}</h3>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngFor="let stock of stocks.stockPrices">
+            <p matLine>
+                <span>Stock Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ stock.stockPrice }}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Created Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ stock.stockCreatedDate }}</span>
+            </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">Max stock price&nbsp;&nbsp;&nbsp;&nbsp;{{ stocks.maxStockPrice }}</mat-list-item>
+        <mat-list-item role="listitem">Min stock price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ stocks.minStockPrice }}</mat-list-item>
+        <mat-list-item role="listitem">Avg stock price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ stocks.avgStockPrice }}</mat-list-item>
+    </mat-list>
+</mat-card>

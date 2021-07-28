@@ -1,1 +1,38 @@
-<p>get-company-details works!</p>
+
+<mat-form-field align="center" appearance="outline" [color]="'accent'" [style.fontSize.px]="30">
+    <mat-label>
+        <mat-icon aria-hidden="false" aria-label="Example home icon"> search </mat-icon>
+    </mat-label>
+    <input matInput type="text" (keyup.enter)="getCompany(input.value)" (keyup)="reset(input.value)"
+        placeholder="Enter company code" #input align="center">
+</mat-form-field>
+<mat-card class="company-card" [class.mat-elevation-z8]="active">
+    <br>
+    <mat-card-title>Company Details</mat-card-title>
+    <br><br>
+    <mat-card-content *ngIf="isPresent">
+        <mat-grid-list cols="2" rowHeight="5:0.5">
+            <mat-grid-tile>Company Code</mat-grid-tile>
+            <mat-grid-tile>{{ company.companyCode }}</mat-grid-tile>
+            <mat-grid-tile>Company Name</mat-grid-tile>
+            <mat-grid-tile>{{ company.companyName }}</mat-grid-tile>
+            <mat-grid-tile>Company CEO</mat-grid-tile>
+            <mat-grid-tile>{{ company.companyCEO }}</mat-grid-tile>
+            <mat-grid-tile>Company Turn Over</mat-grid-tile>
+            <mat-grid-tile>{{ company.companyTurnOver }}</mat-grid-tile>
+            <mat-grid-tile>Company Website</mat-grid-tile>
+            <mat-grid-tile>{{ company.companyWebsite }}</mat-grid-tile>
+            <mat-grid-tile>Stock Exchange</mat-grid-tile>
+            <mat-grid-tile>{{ company.stockExchange }}</mat-grid-tile>
+            <mat-grid-tile>Latest Stock Price</mat-grid-tile>
+            <mat-grid-tile>{{ company.latestStockPrice }}</mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-content>
+    <mat-card-content *ngIf="!isPresent && input.value !== ''">
+        <p>No company registered with entered company code.</p>
+    </mat-card-content>
+    <br>
+    <mat-card-actions>
+        <button mat-button color="accent" (click)="deleteCompany()" [disabled]="!isValid()">Delete</button>
+    </mat-card-actions>
+</mat-card>
